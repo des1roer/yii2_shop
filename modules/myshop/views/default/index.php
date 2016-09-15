@@ -7,31 +7,25 @@ $result = $command->queryAll();
 
 foreach ($result as $key => $value) {
     ?>
-    <div><?= $value['name'] ?></div>
+    <div onclick="myfunc(<?= $value['id'] ?>)"><?= $value['name'] ?></div>
     <?php
 }
 ?>
-
-<!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
+<!--http://loco.ru/materials/502-yii2-modalnoe-okno-s-formoi-obratnoi-svyazi-po-ajax-->
+<script type="text/javascript">
+    function myfunc(id)
+    {
+        $('#myModal').removeData('bs.modal');
+        $('#myModal').modal({remote: '/myshop/item.php'});
+        $('#myModal').modal('show');
+//        $.ajax({
+//            url: "/myshop/item.php",
+//            success: function (data) {
+//                $("#myModal").html(data);
+//            }
+//        });
+        //alert(id);
+        // $('#myModal').modal('show');
+    }
+</script>
+<div id ="myModal"></div>
