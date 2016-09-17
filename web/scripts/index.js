@@ -1,29 +1,40 @@
-function myclick(id, edit)
+function sale(id, act)
+{
+    alert(id);
+}
+function myclick(id, edit, btn_text)
 {
     if (typeof edit == 'undefined')
         edit = '0';
-    
-        var url = '/myshop/item/view?id='+id;
-        var clickedbtn = $(this);
-        //var UserID = clickedbtn.data("userid");
+    if (typeof edit == 'btn_text')
+        btn_text = null;
 
-        var modalContainer = $('#my-modal');
-        var modalBody = modalContainer.find('.modal-body');
-        modalContainer.modal({show: true});
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: {'id':id, 'act': 'modal', 'edit': edit},
-            success: function (data) {
-                $('.modal-body').html(data);
-                modalContainer.modal({show: true});
-            }
-        });
+    var url = '/myshop/item/view?id=' + id;
+    var clickedbtn = $(this);
+    //var UserID = clickedbtn.data("userid");
+
+    var modalContainer = $('#my-modal');
+    var modalBody = modalContainer.find('.modal-body');
+
+    modalContainer.modal({show: true});
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {'id': id, 'act': 'modal', 'edit': edit, 'btn_text': btn_text},
+        success: function (data) {
+            $('.modal-body').html(data);
+            $('#send_btn').html(btn_text);
+
+            modalContainer.modal({show: true});
+        }
+    });
+
+    $("#send_btn").click(function () {
+        alert(id);
+    });
 }
 
 $(document).ready(function () {
-
-
     $('.signup').click(function (event) { // нажатие на кнопку - выпадает модальное окно
         event.preventDefault();
 

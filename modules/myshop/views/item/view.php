@@ -9,9 +9,11 @@ use yii\widgets\DetailView;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Items', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$val = $this->params['customParam'];
 ?>
 <div class="item-view">
-
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <div id="success"> </div> <!-- For success message -->
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -45,5 +47,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ])
     ?>
-
+    <?php if (!empty(Yii::$app->request->post('btn_text'))) { ?>
+        <div class="form-group text-right">
+            <?= Html::submitButton('Отправить', ['id' => 'send_btn', 'class' => 'btn btn-success', 'onclick' => '(function ( $event ) { sale("' . $val . ', ' . $val . '"); })();']) ?>
+        </div>
+    <?php } ?>
 </div>

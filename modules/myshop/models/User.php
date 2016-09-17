@@ -13,32 +13,30 @@ use Yii;
  *
  * @property Inventory[] $inventories
  */
-class User extends \yii\db\ActiveRecord
-{
+class User extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'user';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['money'], 'integer'],
             [['name'], 'string', 'max' => 20],
+            [['item_list'], 'safe'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'name' => 'Имя',
@@ -46,11 +44,27 @@ class User extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getItems() {
+        return $this->hasMany(Item::className(), ['id' => 'item_id'])
+                        ->viaTable('inventory', ['user_id' => 'id']);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getInventories()
-    {
+    public function getInventories() {
         return $this->hasMany(Inventory::className(), ['user_id' => 'id']);
     }
+
+    public function behaviors() {
+        return [
+            [
+                'class' => \voskobovich\behaviors\ManyToManyBehavior::className(),
+                'relations' => [
+                    'item_list' => 'items',
+                ],
+            ],
+        ];
+    }
+
 }

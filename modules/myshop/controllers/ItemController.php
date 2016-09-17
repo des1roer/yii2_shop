@@ -50,6 +50,7 @@ class ItemController extends Controller {
      */
     public function actionView($id) {
         if (Yii::$app->request->post('act') == 'modal') {
+            $this->view->params['customParam'] = 'customValue';
             return $this->renderPartial('view', [
                         'model' => $this->findModel($id),
             ]);
