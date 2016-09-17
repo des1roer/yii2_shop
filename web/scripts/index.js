@@ -1,13 +1,30 @@
-function sale(id, act)
+function sale(item_id, unit_id, cost)
 {
-    alert(id);
+    var url = '/myshop/item/sale';
+    var type = $('#send_btn').html();
+    if (type == 'Купить')
+        type = 'inventory';
+    else
+        type = 'assorty';
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {'item_id': item_id, 'unit_id': unit_id, 'type': type, 'cost':cost},
+        success: function (data) {
+            $("#my-modal").modal('hide');
+            location.reload();
+        }
+    });
 }
-function myclick(id, edit, btn_text)
+function myclick(id, edit, btn_text, unit_id)
 {
     if (typeof edit == 'undefined')
         edit = '0';
-    if (typeof edit == 'btn_text')
+    if (typeof btn_text == 'undefined')
         btn_text = null;
+    if (typeof unit_id == 'undefined')
+        unit_id = null;
 
     var url = '/myshop/item/view?id=' + id;
     var clickedbtn = $(this);
@@ -20,7 +37,7 @@ function myclick(id, edit, btn_text)
     $.ajax({
         url: url,
         type: "POST",
-        data: {'id': id, 'act': 'modal', 'edit': edit, 'btn_text': btn_text},
+        data: {'id': id, 'act': 'modal', 'edit': edit, 'btn_text': btn_text, 'unit_id': unit_id},
         success: function (data) {
             $('.modal-body').html(data);
             $('#send_btn').html(btn_text);
