@@ -3,6 +3,10 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
+$this->registerJsFile(
+        'scripts/index.js', ['depends' => 'app\assets\AppAsset']
+);
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\myshop\models\ItemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -13,23 +17,46 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="item-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
     <p>
         <?= Html::a('Create Item', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+    <?php Pjax::begin(); ?>    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'name',
-            'img',
-            'cost',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-<?php Pjax::end(); ?></div>
+            [
+                'attribute' => 'img',
+                'format' => 'html',
+                'value' => function($data) {
+                    return Html::img($data->imageurl, ['width' => '100']);
+                },
+                    ],
+                    'cost',
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'buttons' => [
+                            'view' => function ($url, $model) {
+                                return Html::a("<span class='glyphicon glyphicon-eye-open' onclick='myclick(" . $model->id . ", 1); return false;'></span>", $url, [
+                                            'title' => Yii::t('app', 'view'),
+                                ]);
+                            },
+                                ],
+//                        'urlCreator' => function ($action, $model, $key, $index) {
+//                    if ($action === 'view') {
+//                        $url = 'view?id=' . $model->id;
+//                        return false;
+//                    }
+//                },
+                                'template' => '{view} {update} {delete}',
+                            ]
+                        ],
+                            //   ['class' => 'yii\grid\ActionColumn'],
+                    ]);
+                    ?>
+                    <?php Pjax::end(); ?></div>

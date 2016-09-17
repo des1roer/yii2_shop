@@ -2,6 +2,7 @@
 
 namespace app\modules\myshop\models;
 
+use yii\web\UploadedFile;
 use Yii;
 
 /**
@@ -15,33 +16,36 @@ use Yii;
  * @property Assorty[] $assorties
  * @property Inventory[] $inventories
  */
-class Item extends \yii\db\ActiveRecord
-{
+class Item extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'item';
+    }
+
+    public function getImageurl() {
+        // return your image url here
+        return \Yii::$app->request->BaseUrl . '/images/' . $this->img;
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['name'], 'required'],
             [['cost'], 'integer'],
-            [['name', 'img'], 'string', 'max' => 20],
+            [['name'], 'string', 'max' => 20],
+            [['img'], 'file', 'extensions' => 'png, jpg', 'maxSize' => 1024 * 1024 * 5],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'name' => 'Name',
@@ -53,16 +57,15 @@ class Item extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAssorties()
-    {
+    public function getAssorties() {
         return $this->hasMany(Assorty::className(), ['item_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getInventories()
-    {
+    public function getInventories() {
         return $this->hasMany(Inventory::className(), ['item_id' => 'id']);
     }
+
 }

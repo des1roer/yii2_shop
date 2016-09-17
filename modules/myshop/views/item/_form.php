@@ -10,11 +10,14 @@ use yii\widgets\ActiveForm;
 
 <div class="item-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => 'item-form', 'options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'img')->textInput(['maxlength' => true]) ?>
+     <?= $form->field($model, 'img')->fileInput() ?>
+
+    <?php echo ($model->img) ? Html::img('/images/' . $model->img, ['width' => 100, 'height' => 100]) : null ?>
+
 
     <?= $form->field($model, 'cost')->textInput(['maxlength' => true]) ?>
 

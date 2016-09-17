@@ -17,6 +17,7 @@ class DefaultController extends Controller {
      * @return string
      */
     public function actionIndex() {
+        $this->view->registerCssFile('css/style.css');
         return $this->render('index');
     }
 
@@ -24,7 +25,7 @@ class DefaultController extends Controller {
     public function actionSignup() {
         $model = new SignupForm();
         //  $model = new \app\models\SignupForm();
-        //$model->id =$userid;
+        //$model->id =$id;
         return $this->renderPartial('signup', [
                     'model' => $model,
         ]);

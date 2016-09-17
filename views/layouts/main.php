@@ -84,3 +84,14 @@ AppAsset::register($this);
     </body>
 </html>
 <?php $this->endPage() ?>
+
+<!-- Modal "Записаться на занятия" -->
+<div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-sm">
+     <div class="modal-content">
+       <div class="modal-body">
+         ...
+       </div>
+     </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
