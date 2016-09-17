@@ -1,3 +1,36 @@
+function myedit(id, url, act)
+{
+    var url_ = url + '/' + act;
+
+    var modalContainer = $('#my-modal');
+    modalContainer.modal({show: true});
+    $.ajax({
+        url: url_,
+        type: "POST",
+        data: {'id': id, 'act': 'modal'},
+        success: function (data) {
+            $('.modal-body').html(data);
+            modalContainer.modal({show: true});
+
+
+            $("#ok").click(function () {
+                //console.log(url);
+                //console.log($('#' + url + '-form').serialize());
+                return false;
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: form,
+                    success: function (data) {
+                        $("#my-modal").modal('hide');
+                        //  location.reload();
+                    }
+                });
+            });
+        }
+    });
+}
+
 function sale(item_id, unit_id, cost)
 {
     var url = '/myshop/item/sale';
@@ -10,7 +43,7 @@ function sale(item_id, unit_id, cost)
     $.ajax({
         url: url,
         type: "POST",
-        data: {'item_id': item_id, 'unit_id': unit_id, 'type': type, 'cost':cost},
+        data: {'item_id': item_id, 'unit_id': unit_id, 'type': type, 'cost': cost},
         success: function (data) {
             $("#my-modal").modal('hide');
             location.reload();
@@ -80,7 +113,6 @@ $(document).ready(function () {
             type: "POST",
             data: form.serialize(),
             success: function (result) {
-                console.log(result);
                 var modalContainer = $('#my-modal');
                 var modalBody = modalContainer.find('.modal-body');
                 var insidemodalBody = modalContainer.find('.gb-user-form');

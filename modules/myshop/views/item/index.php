@@ -47,16 +47,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]);
                             },
                                 ],
-//                        'urlCreator' => function ($action, $model, $key, $index) {
-//                    if ($action === 'view') {
-//                        $url = 'view?id=' . $model->id;
-//                        return false;
-//                    }
-//                },
                                 'template' => '{view} {update} {delete}',
                             ]
                         ],
-                            //   ['class' => 'yii\grid\ActionColumn'],
                     ]);
                     ?>
                     <?php Pjax::end(); ?></div>
