@@ -53,6 +53,8 @@ $config = [
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            //    'signup' => '/myshop/default/signup',
+            //    'submitsignup' => '/myshop/submitsignup',
             ),
         ],
     ],

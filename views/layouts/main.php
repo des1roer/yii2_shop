@@ -43,6 +43,7 @@ AppAsset::register($this);
                             ['label' => 'User', 'url' => ['/myshop/user']],
                             ['label' => 'Shop', 'url' => ['/myshop/shop']],
                             ['label' => 'Item', 'url' => ['/myshop/item']],
+                            ['label' => 'Market', 'url' => ['/myshop']],
                         ]
                     ],
                     Yii::$app->user->isGuest ? (
@@ -62,11 +63,11 @@ AppAsset::register($this);
             ?>
 
             <div class="container">
-<?=
-Breadcrumbs::widget([
-    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-])
-?>
+                <?=
+                Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ])
+                ?>
                 <?= $content ?>
             </div>
         </div>
