@@ -18,9 +18,7 @@
         "yiisoft/yii2": ">=2.0.5",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
-        "voskobovich/yii2-many-many-behavior": "^3.0",
-        "yiisoft/yii2-imagine": "^2.0",
-        "intervention/image": "^2.3"
+        "voskobovich/yii2-many-many-behavior": "^3.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
