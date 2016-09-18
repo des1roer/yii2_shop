@@ -79,14 +79,13 @@ class UserController extends Controller {
     public function actionModalupdate($id = null) {
         if (empty($id))
             $id = Yii::$app->request->post('id');
-//   var_dump($_POST);
-//             die();
-         if (Yii::$app->request->post('act') == 'save') {
-             var_dump($_POST);
-             die();
-         }
-        $model = $this->findModel($id);
+        if (empty($id))
+            $id = Yii::$app->request->post('User')['id'];
 
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect('index');
+        }
         return $this->renderPartial('update', [
                     'model' => $model,
         ]);

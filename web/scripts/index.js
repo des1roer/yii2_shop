@@ -1,29 +1,25 @@
-function myedit(id, url, act)
+function myedit(id,  act)
 {
-    var url_ = url + '/' + act;
-
     var modalContainer = $('#my-modal');
     modalContainer.modal({show: true});
     $.ajax({
-        url: url_,
+        url: act,
         type: "POST",
         data: {'id': id, 'act': 'modal'},
         success: function (data) {
             $('.modal-body').html(data);
             modalContainer.modal({show: true});
 
-
-            $("#ok").click(function () {
-                //console.log(url);
-                //console.log($('#' + url + '-form').serialize());
-                return false;
+            $("#user-form").on("submit", function (event) {
+                event.preventDefault();                
+                var data = $(this).serialize();
+                data.id = id;
                 $.ajax({
-                    url: url,
+                    url: act,
                     type: "POST",
-                    data: form,
+                    data: data,
                     success: function (data) {
-                        $("#my-modal").modal('hide');
-                        //  location.reload();
+                        $('.modal-body').html(data);
                     }
                 });
             });

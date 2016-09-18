@@ -9,17 +9,17 @@ use yii\helpers\ArrayHelper;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div id="user-form" class="user-form">
+<div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-
+    <?php $form = ActiveForm::begin(['id'=>"user-form" ]); ?>
+    <?= $form->field($model, 'id')->hiddenInput(['value'=> $value])->label(false); ?> 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'money')->textInput(['maxlength' => true]) ?>
 
-    <?=
+    <?php /*
             $form->field($model, 'item_list')
-            ->dropDownList(ArrayHelper::map(app\modules\myshop\models\Item::find()->all(), 'id', 'name'), ['multiple' => true])
+            ->dropDownList(ArrayHelper::map(app\modules\myshop\models\Item::find()->all(), 'id', 'name'), ['multiple' => true]) */
     ?>
 
     <div class="form-group">

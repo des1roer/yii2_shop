@@ -32,13 +32,19 @@ AppAsset::register($this);
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
+            $user = \Yii::$app->user;
+            $isAdmin = $user->can('admin');
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
                     ['label' => 'Home', 'url' => ['/site/index']],
                     ['label' => 'About', 'url' => ['/site/about']],
                     ['label' => 'Contact', 'url' => ['/site/contact']],
-                    ['label' => 'Gii', 'url' => ['/gii']],
+                    ['label' => 'Admin', 'items' => [
+                            ['label' => 'API', 'url' => ['/user']],
+                            ['label' => 'Аккаунты', 'url' => ['/user/admin']],
+                            ['label' => 'gii', 'url' => ['/gii']],
+                        ], 'visible' => $isAdmin], // check if user is an admin 
                     ['label' => 'Shop', 'items' => [
                             ['label' => 'User', 'url' => ['/myshop/user']],
                             ['label' => 'Shop', 'url' => ['/myshop/shop']],
@@ -46,17 +52,11 @@ AppAsset::register($this);
                             ['label' => 'Market', 'url' => ['/myshop']],
                         ]
                     ],
-                    Yii::$app->user->isGuest ? (
-                            ['label' => 'Login', 'url' => ['/site/login']]
-                            ) : (
-                            '<li>'
-                            . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
-                            . Html::submitButton(
-                                    'Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link']
-                            )
-                            . Html::endForm()
-                            . '</li>'
-                            )
+                    Yii::$app->user->isGuest ?
+                            ['label' => 'Login', 'url' => ['/user/login']] : // or ['/user/login-email']
+                            ['label' => 'Logout (' . Yii::$app->user->displayName . ')',
+                        'url' => ['/user/logout'],
+                        'linkOptions' => ['data-method' => 'post']],
                 ],
             ]);
             NavBar::end();
@@ -85,13 +85,13 @@ AppAsset::register($this);
 </html>
 <?php $this->endPage() ?>
 
-<!-- Modal "Записаться на занятия" -->
+<!-- Modal "" -->
 <div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-sm">
-     <div class="modal-content">
-       <div class="modal-body">
-         ...
-       </div>
-     </div><!-- /.modal-content -->
-   </div><!-- /.modal-dialog -->
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                ...
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

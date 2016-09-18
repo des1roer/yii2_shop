@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
     <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?php Pjax::begin(); ?>    <?=
+    <?php Pjax::begin(); ?>    
+    <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -35,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'update' => function ($url, $model) use ($controller) {
-                        return Html::a("<span class='glyphicon glyphicon-pencil' onclick='myedit(" . $model->id . ",\"".$controller."\" , \"modalupdate\"); return false;'></span>", $url, [
+                        return Html::a("<span class='glyphicon glyphicon-pencil' onclick='myedit(" . $model->id . " , \"modalupdate\"); return false;'></span>", $url, [
                                     'title' => Yii::t('app', 'view'),
                         ]);
                     },
