@@ -50,6 +50,7 @@ AppAsset::register($this);
                             ['label' => 'Shop', 'url' => ['/myshop/shop']],
                             ['label' => 'Item', 'url' => ['/myshop/item']],
                             ['label' => 'Market', 'url' => ['/myshop']],
+                            ['label' => 'Doll', 'url' => ['/myshop/doll']],
                         ]
                     ],
                     Yii::$app->user->isGuest ?

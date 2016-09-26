@@ -1,9 +1,8 @@
 function myedit(id,  act)
 {
     var modalContainer = $('#my-modal');
-    modalContainer.modal({show: true});
     $.ajax({
-        url: act,
+        url: '/myshop/user/'+act,
         type: "POST",
         data: {'id': id, 'act': 'modal'},
         success: function (data) {

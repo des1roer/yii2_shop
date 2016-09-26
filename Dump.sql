@@ -43,6 +43,27 @@ CREATE TABLE `assorty` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `doll`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `doll` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `item_id` int(11) unsigned NOT NULL,
+  `part` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `doll_idx1` (`user_id`,`item_id`,`part`),
+  KEY `user_id` (`user_id`),
+  KEY `item_id` (`item_id`),
+  CONSTRAINT `doll_fk2` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
+  CONSTRAINT `doll_fk1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 PACK_KEYS=0;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `inventory`
 --
 
@@ -223,4 +244,4 @@ CREATE TABLE `user_token` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-18 11:59:12
+-- Dump completed on 2016-09-26 21:45:54
