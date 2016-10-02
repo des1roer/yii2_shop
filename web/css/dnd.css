@@ -1,0 +1,12 @@
+#basket, .draggable {font-size: large; 
+                     padding: 4px; width: 150px; text-align: center;
+                     margin-bottom: 10px;}
+
+.invent {
+    height:104px;
+    width:140px;
+    border: medium solid black;
+}
+
+#basket {position: absolute; left: 35%; border: medium solid black;
+}

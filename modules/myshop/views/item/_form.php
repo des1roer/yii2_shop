@@ -14,13 +14,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-     <?= $form->field($model, 'img')->fileInput() ?>
+    <?= $form->field($model, 'img')->fileInput() ?>
 
     <?php echo ($model->img) ? Html::img('/images/' . $model->img, ['width' => 100, 'height' => 100]) : null ?>
 
 
     <?= $form->field($model, 'cost')->textInput(['maxlength' => true]) ?>
-
+    <?=
+    $form->field($model, 'type')->dropDownList([
+        '0' => 'Голова',
+        '1' => 'Тело',
+        '2' => 'Ноги'
+    ]);
+    ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

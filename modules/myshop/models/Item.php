@@ -36,7 +36,7 @@ class Item extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['name'], 'required'],
-            [['cost'], 'integer'],
+            [['cost', 'type'], 'integer'],
             [['name'], 'string', 'max' => 20],
             [['img'], 'file', 'extensions' => 'png, jpg', 'maxSize' => 1024 * 1024 * 5],
         ];
@@ -51,6 +51,7 @@ class Item extends \yii\db\ActiveRecord {
             'name' => 'Name',
             'img' => 'Img',
             'cost' => 'Cost',
+            'type' => 'Тип'
         ];
     }
 

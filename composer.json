@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "*",
         "voskobovich/yii2-many-many-behavior": "^3.0",
         "amnah/yii2-user": "^5.0",
-        "tmukherjee13/yii2-reverse-migration": "*"
+        "tmukherjee13/yii2-reverse-migration": "*",
+        "yiisoft/yii2-jui": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
