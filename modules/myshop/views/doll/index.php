@@ -24,19 +24,21 @@ $command = $connection->createCommand("select shop.name as shop, shop.id as sid,
 
 $result = $command->queryAll();
 
-$command = $connection->createCommand("select user.name as user, money, user.id as uid, item.name, item.id, "
-        . "item.img, item.type, inventory.active from user, inventory, item"
-        . " where user_id = user.id and item_id = item.id and user.id = 1 ");
+$command = $connection->createCommand("select user.name as user, money, user.id as uid, item.name, item.id, item.img, item.type, ii.active, 
+(select count(id) from inventory where active = 0) cnt
+from user, inventory ii left join  item on ii.item_id = item.id
+ where ii.user_id = user.id and user.id = 1 
+ group by ii.id");
 
 $result2 = $command->queryAll();
 
-$cnt = count($result);
+$cnt = max(count($result), $result2['cnt']);
 $col_cnt = 3; //число стлобцов
 $row_cnt = ceil($cnt / $col_cnt); //число строк
 $num = $num2 = 0;
 ?>
 <div id="doll-index">
-    <table class="table" style="width: 300px; border: 0;">
+    <table class="table table-bordered" style="width: 300px; border: 0;">
         <thead>
         <th colspan="<?= $col_cnt ?>">
             <h3><?= $result[0]['shop'] ?></h3>
@@ -63,25 +65,30 @@ $num = $num2 = 0;
                 <td bgcolor="#FF0000">
                     &nbsp;
                 </td>
-                <?php for ($i2 = 0; $i2 < $col_cnt; $i2++) { //столбцы инвентаря ?>
-                    <td>     
+                <?php for ($i2 = 0; $i2 < $col_cnt; $i2++) { //столбцы инвентаря 
+                    ?>
+                    <?php
+                    if (!empty($result2[$num2]['id'])) {
+                        ?>
                         <?php
-                        if (!empty($result2[$num2]['id'])) {
-                            if ($result2[$num2]['active'] == 1) {
-                                $inv[$result2[$num2]['type']] = $result2[$num2]['img'];
-                            } else {
-                                ?>
+                        if ($result2[$num2]['active'] == 1) {
+                            $inv[$result2[$num2]['type']] = $result2[$num2]['img'];
+                        } else {
+                            ?>
+                            <td>   
                                 <div id='<?= $result2[$num2]['id'] ?>_<?= $result2[$num2]['uid'] ?>' 
                                      class="draggable myDiv type_<?= $result2[$num2]['type'] ?>" 
                                      ondblclick="myclick(<?= $result2[$num2]['id'] ?>, 0, 'Продать',
                                                      '<?= $result2[0]['uid'] ?>')">  
-                                     <?= ($result2[$num2]['img']) ? Html::img('/images/' . $result2[$num2]['img']) : $result2[$num2]['name'] ?>
-                                </div>
-                            <?php } ?>
-                        </td>                  
-                        <?php
-                        $num2++;
-                    };
+                                         <?= ($result2[$num2]['img']) ? Html::img('/images/' . $result2[$num2]['img']) : $result2[$num2]['name'] ?>
+                                </div> 
+                            </td>  
+                        <?php } ?>
+
+                    <?php }
+                    ?>
+                    <?php
+                    $num2++;
                 };
                 ?>                   
             </tr>

@@ -22,7 +22,7 @@ $row_cnt = ceil($cnt / $col_cnt); //число строк
 $num = $num2 = 0;
 ?>
 
-<table class="table" style="width: 300px; border: 0;">
+<table class="table table-bordered" style="width: 300px; border: 0;">
     <thead>
     <th colspan="<?= $col_cnt ?>">
         <h3><?= $result[0]['shop'] ?></h3>
