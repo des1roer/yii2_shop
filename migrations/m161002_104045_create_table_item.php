@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation for table `{{%item}}`.
  */
-class m160928_034641_create_table_item extends Migration
+class m161002_104045_create_table_item extends Migration
 {
     /**
      * @inheritdoc
@@ -18,6 +18,7 @@ class m160928_034641_create_table_item extends Migration
             'name' => $this->string(20)->notNull(),
             'img' => $this->string(20),
             'cost' => $this->integer(10)->unsigned()->notNull(),
+            'type' => $this->integer(11)->unsigned()->notNull()->defaultValue(1),
 
         ]);
      }

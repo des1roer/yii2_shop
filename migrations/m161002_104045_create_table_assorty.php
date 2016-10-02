@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation for table `{{%assorty}}`.
  */
-class m160928_034641_create_table_assorty extends Migration
+class m161002_104045_create_table_assorty extends Migration
 {
     /**
      * @inheritdoc

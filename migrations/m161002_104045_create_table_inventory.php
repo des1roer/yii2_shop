@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation for table `{{%inventory}}`.
  */
-class m160928_034641_create_table_inventory extends Migration
+class m161002_104045_create_table_inventory extends Migration
 {
     /**
      * @inheritdoc
@@ -17,6 +17,8 @@ class m160928_034641_create_table_inventory extends Migration
             'id' => $this->primaryKey()->notNull(),
             'user_id' => $this->integer(11)->notNull(),
             'item_id' => $this->integer(10)->unsigned()->notNull(),
+            'active' => $this->integer(10)->unsigned()->notNull(),
+            'type' => $this->integer(10)->unsigned()->notNull()->defaultValue(1),
 
         ]);
  

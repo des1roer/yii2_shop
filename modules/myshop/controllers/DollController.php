@@ -51,9 +51,13 @@ class DollController extends Controller {
 
         $command = $connection->createCommand("update inventory set active = 0 where user_id = $user_id and type = $type ");
         $result = $command->execute();
-
-        $command = $connection->createCommand("update inventory set active = 1 where user_id = $user_id and type = $type  and item_id = $item_id");
+        
+        //var_dump($command->getRawSql());
+        
+        $command = $connection->createCommand("update inventory set active = 1 where user_id = $user_id and type = $type  and item_id = $item_id ORDER BY id DESC LIMIT 1");
         $result = $command->execute();
+        
+        //var_dump($command->getRawSql());
 
         return $this->redirect('/myshop/doll/index');
     }

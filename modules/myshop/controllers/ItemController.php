@@ -40,7 +40,7 @@ class ItemController extends Controller {
             $command = $connection->createCommand("update user set money = money - $cost");
             $result = $command->execute();
 
-            $command = $connection->createCommand("insert into $type ($col, item_id) VALUES ($unit_id, $item_id) ");
+            $command = $connection->createCommand("insert into $type ($col, item_id, type) VALUES ($unit_id, $item_id, (select type from item where id = $item_id)) ");
             $result = $command->execute();
         } else {
             $command = $connection->createCommand("update user set money = money + $cost");

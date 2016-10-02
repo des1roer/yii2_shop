@@ -1,12 +1,9 @@
 $(function () {
     function find_class(el) {
-
         var items = [];
-
         $.each(el.attr('class').split(/\s+/), function (index, item) {
             items.push(item);
         });
-
         return items;
     }
 
@@ -34,6 +31,7 @@ $(function () {
                 idx = one.indexOf(two[i]);
                 if (idx >= 0) //совпадают классы
                 {
+                    //console.log(idx);
                     var data =
                             {
                                 type: $(event.target).attr('id'),
@@ -51,12 +49,6 @@ $(function () {
                     });
                 }
             }
-
-
-
-
-
-
         },
         out: function (event, ui) {
             //ui.helper.css("border", "")

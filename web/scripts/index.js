@@ -1,8 +1,9 @@
-function myedit(id,  act)
+function myedit(id, act)
 {
     var modalContainer = $('#my-modal');
+    act = '/myshop/user/' + act;
     $.ajax({
-        url: '/myshop/user/'+act,
+        url: act,
         type: "POST",
         data: {'id': id, 'act': 'modal'},
         success: function (data) {
@@ -10,7 +11,7 @@ function myedit(id,  act)
             modalContainer.modal({show: true});
 
             $("#user-form").on("submit", function (event) {
-                event.preventDefault();                
+                event.preventDefault();
                 var data = $(this).serialize();
                 data.id = id;
                 $.ajax({
@@ -42,6 +43,9 @@ function sale(item_id, unit_id, cost)
         success: function (data) {
             $("#my-modal").modal('hide');
             location.reload();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            $('.modal-body').html('Недостаточно денег');
         }
     });
 }

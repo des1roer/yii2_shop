@@ -12,7 +12,7 @@ $command = $connection->createCommand("select shop.name as shop, shop.id as sid,
 $result = $command->queryAll();
 
 $command = $connection->createCommand("select user.name as user, money, user.id as uid, item.name, item.id, item.img from user, inventory, item"
-        . " where user_id = user.id and item_id = item.id and user.id = 1 ");
+        . " where user_id = user.id and item_id = item.id and user.id = 1");
 
 $result2 = $command->queryAll();
 
