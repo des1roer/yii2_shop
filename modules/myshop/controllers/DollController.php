@@ -55,11 +55,7 @@ class DollController extends Controller {
         $command = $connection->createCommand("update inventory set active = 1 where user_id = $user_id and type = $type  and item_id = $item_id");
         $result = $command->execute();
 
-        $this->view->registerCssFile('/css/style.css');
-        $searchModel = new DollSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->renderPartial('index');
+        return $this->redirect('/myshop/doll/index');
     }
 
     /**

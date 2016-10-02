@@ -46,7 +46,7 @@ $(function () {
                         data: data,
                         success: function (data) {
                             //console.log(data);
-                            $('#doll-index').html(data);
+                            //$('#doll-index').html(data);
                         }
                     });
                 }
