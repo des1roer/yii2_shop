@@ -27,7 +27,7 @@ function myedit(id, act)
     });
 }
 
-function sale(item_id, unit_id, cost)
+function sale(item_id, unit_id, cost, iid)
 {
     var url = '/myshop/item/sale';
     var type = $('#send_btn').html();
@@ -35,11 +35,14 @@ function sale(item_id, unit_id, cost)
         type = 'inventory';
     else
         type = 'assorty';
-
+    
+    if (typeof iid == 'undefined')
+        iid = null;
+    
     $.ajax({
         url: url,
         type: "POST",
-        data: {'item_id': item_id, 'unit_id': unit_id, 'type': type, 'cost': cost},
+        data: {'item_id': item_id, 'unit_id': unit_id, 'type': type, 'cost': cost, 'iid': iid},
         success: function (data) {
             $("#my-modal").modal('hide');
             location.reload();
@@ -49,7 +52,9 @@ function sale(item_id, unit_id, cost)
         }
     });
 }
-function myclick(id, edit, btn_text, unit_id)
+
+
+function myclick(id, edit, btn_text, unit_id, iid)
 {
     if (typeof edit == 'undefined')
         edit = '0';
@@ -57,19 +62,21 @@ function myclick(id, edit, btn_text, unit_id)
         btn_text = null;
     if (typeof unit_id == 'undefined')
         unit_id = null;
+    if (typeof iid == 'undefined')
+        iid = null;
 
     var url = '/myshop/item/view?id=' + id;
     var clickedbtn = $(this);
     //var UserID = clickedbtn.data("userid");
 
     var modalContainer = $('#my-modal');
-    var modalBody = modalContainer.find('.modal-body');
 
     modalContainer.modal({show: true});
+
     $.ajax({
         url: url,
         type: "POST",
-        data: {'id': id, 'act': 'modal', 'edit': edit, 'btn_text': btn_text, 'unit_id': unit_id},
+        data: {'id': id, 'act': 'modal', 'edit': edit, 'btn_text': btn_text, 'unit_id': unit_id, 'iid': iid},
         success: function (data) {
             $('.modal-body').html(data);
             $('#send_btn').html(btn_text);
@@ -78,9 +85,7 @@ function myclick(id, edit, btn_text, unit_id)
         }
     });
 
-    $("#send_btn").click(function () {
-        alert(id);
-    });
+
 }
 
 $(document).ready(function () {
@@ -92,7 +97,6 @@ $(document).ready(function () {
         //var UserID = clickedbtn.data("userid");
 
         var modalContainer = $('#my-modal');
-        var modalBody = modalContainer.find('.modal-body');
         modalContainer.modal({show: true});
         $.ajax({
             url: url,

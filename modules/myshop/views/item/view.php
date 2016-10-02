@@ -10,6 +10,8 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Items', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $val = $this->params['uuid'];
+$iid = (!empty($this->params['iid'])) ?  $this->params['iid'] : -1;
+
 ?>
 <div class="item-view">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -49,7 +51,7 @@ $val = $this->params['uuid'];
     ?>
     <?php if (!empty(Yii::$app->request->post('btn_text'))) { ?>
         <div class="form-group text-right">
-            <?= Html::submitButton('Отправить', ['id' => 'send_btn', 'class' => 'btn btn-success', 'onclick' => '(function ( $event ) { sale(' . $model->id . ', ' . $val . ', '.$model->cost .'); })();']) ?>
+            <?= Html::submitButton('Отправить', ['id' => 'send_btn', 'class' => 'btn btn-success', 'onclick' => '(function ( $event ) { sale(' . $model->id . ', ' . $val . ', ' . $model->cost . ', ' . $iid . '); })();']) ?>
         </div>
     <?php } ?>
 </div>

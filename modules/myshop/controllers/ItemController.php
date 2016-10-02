@@ -34,7 +34,7 @@ class ItemController extends Controller {
         $unit_id = Yii::$app->request->post('unit_id');
         $type = Yii::$app->request->post('type');
         $cost = Yii::$app->request->post('cost');
-        $col =  'user_id';
+        $col = 'user_id';
         $connection = Yii::$app->getDb();
         if ($type == 'inventory') {
             $command = $connection->createCommand("update user set money = money - $cost");
@@ -45,17 +45,10 @@ class ItemController extends Controller {
         } else {
             $command = $connection->createCommand("update user set money = money + $cost");
             $result = $command->execute();
-
-            $command = $connection->createCommand("delete from inventory where $col = $unit_id and item_id = $item_id");
+            $item_id = Yii::$app->request->post('iid');
+            $command = $connection->createCommand("delete from inventory where id = $item_id");
             $result = $command->execute();
-        }
-        $searchModel = new ItemSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-        ]);
+        }        
     }
 
     /**
@@ -65,6 +58,7 @@ class ItemController extends Controller {
     public function actionIndex() {
         $searchModel = new ItemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
@@ -80,6 +74,7 @@ class ItemController extends Controller {
     public function actionView($id) {
         if (Yii::$app->request->post('act') == 'modal') {
             $this->view->params['uuid'] = Yii::$app->request->post('unit_id');
+            $this->view->params['iid'] = Yii::$app->request->post('iid');
             return $this->renderPartial('view', [
                         'model' => $this->findModel($id),
             ]);
@@ -161,7 +156,7 @@ class ItemController extends Controller {
                 return $this->redirect(['index']);
             }
         } else {
-          
+
             return $this->render('update', [
                         'model' => $model,
             ]);
