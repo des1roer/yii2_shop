@@ -14,7 +14,8 @@ $(function () {
         snap: ".invent",
         snapMode: "both",
         //snapTolerance: 50,
-        tolerance: "fit"
+        tolerance: "fit",
+        revert: true
     });
 
     $('.invent').droppable({
@@ -27,35 +28,34 @@ $(function () {
             var one = find_class(ui.helper);
             var two = find_class($(event.target));
 
-
-
             var idx = 0;
             for (var i = 0; i < two.length; i++)
             {
                 idx = one.indexOf(two[i]);
                 if (idx >= 0) //совпадают классы
                 {
-                    alert(idx);
+                    var data =
+                            {
+                                type: $(event.target).attr('id'),
+                                item_id: arr[0],
+                                user_id: arr[1]
+                            };
+                    $.ajax({
+                        url: act,
+                        type: "POST",
+                        data: data,
+                        success: function (data) {
+                            //console.log(data);
+                            $('#doll-index').html(data);
+                        }
+                    });
                 }
             }
 
 
 
-            var data =
-                    {
-                        type: $(event.target).attr('id'),
-                        item_id: arr[0],
-                        user_id: arr[1]
-                    };
-            $.ajax({
-                url: act,
-                type: "POST",
-                data: data,
-                success: function (data) {
-                    //console.log(data);
-                    $('.modal-body').html(data);
-                }
-            });
+
+
 
         },
         out: function (event, ui) {

@@ -25,7 +25,7 @@ $command = $connection->createCommand("select shop.name as shop, shop.id as sid,
 $result = $command->queryAll();
 
 $command = $connection->createCommand("select user.name as user, money, user.id as uid, item.name, item.id, "
-        . "item.img, item.type from user, inventory, item"
+        . "item.img, item.type, inventory.active from user, inventory, item"
         . " where user_id = user.id and item_id = item.id and user.id = 1 ");
 
 $result2 = $command->queryAll();
@@ -35,7 +35,7 @@ $col_cnt = 3; //число стлобцов
 $row_cnt = ceil($cnt / $col_cnt); //число строк
 $num = $num2 = 0;
 ?>
-
+<div id="doll-index">
 <table class="table" style="width: 300px; border: 0;">
     <thead>
     <th colspan="<?= $col_cnt ?>">
@@ -63,32 +63,34 @@ for ($r = 0; $r < $row_cnt; $r++) { //строки
         </td>
         <?php for ($i2 = 0; $i2 < $col_cnt; $i2++) { //столбцы ?>
             <td>     
-                <? if (!empty($result2[$num2]['id'])) { ?>
-                <div id='<?= $result2[$num2]['id'] ?>_<?= $result2[$num2]['uid'] ?>' 
-                     class="draggable myDiv type_<?= $result2[$num2]['type'] ?>" 
-                     ondblclick="myclick(<?= $result2[$num2]['id'] ?>, 0, 'Продать', 
-                                 '<?= $result2[0]['uid'] ?>')">  <?= ($result2[$num2]['img']) ? Html::img('/images/' . $result2[$num2]['img']) : $result2[$num2]['name'] ?></div>
-                <? } ?>
-            </td>
-            <td>
                 <?php
-                $num2++;
-            }
-            ?>
+                if (!empty($result2[$num2]['id'])) {
+                    if ($result2[$num2]['active'] == 1) {
+                        $inv[$result2[$num2]['type']] = $result2[$num2]['img'];
+                    }
+                    ?>
+                    <div id='<?= $result2[$num2]['id'] ?>_<?= $result2[$num2]['uid'] ?>' 
+                         class="draggable myDiv type_<?= $result2[$num2]['type'] ?>" 
+                         ondblclick="myclick(<?= $result2[$num2]['id'] ?>, 0, 'Продать',
+                                                 '<?= $result2[0]['uid'] ?>')">  <?= ($result2[$num2]['img']) ? Html::img('/images/' . $result2[$num2]['img']) : $result2[$num2]['name'] ?></div>
+                    <? } ?>
+                </td>
+                <td>
+                    <?php
+                    $num2++;
+                }
+                ?>
+        </tr>
+        <?php
+    };
+    ?>
+    </table>
+    <table class="table">
+        <tr>
+            <td><div class="myDiv invent type_0" id="0"><?= Html::img('/images/' . $inv[0]); ?></div></td>
+            <td><div class="myDiv invent type_1" id="1"><?= Html::img('/images/' . $inv[1]); ?></div></td>
+            <td><div class="myDiv invent type_2" id="2"><?= Html::img('/images/' . $inv[2]); ?></div></td>
     </tr>
-    <?php
-}
-?>
 </table>
-<table class="table">
-    <tr>
-        <td><div class="invent type_0" id="0"></div></td>
-        <td><div class="invent type_1" id="1"></div></td>
-        <td><div class="invent type_2" id="2"></div></td>
-    </tr>
-</table>
-<!--<div id="basket"><span>Перетащи меня</span></div>
-<div class="draggable ui-state-error">
-    <span>Перетащи меня</span>
-</div> -->
 
+</div>

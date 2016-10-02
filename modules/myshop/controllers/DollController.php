@@ -47,6 +47,19 @@ class DollController extends Controller {
         $item_id = Yii::$app->request->post('item_id');
         $user_id = Yii::$app->request->post('user_id');
         $type = Yii::$app->request->post('type');
+        $connection = Yii::$app->getDb();
+
+        $command = $connection->createCommand("update inventory set active = 0 where user_id = $user_id and type = $type ");
+        $result = $command->execute();
+
+        $command = $connection->createCommand("update inventory set active = 1 where user_id = $user_id and type = $type  and item_id = $item_id");
+        $result = $command->execute();
+
+        $this->view->registerCssFile('/css/style.css');
+        $searchModel = new DollSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->renderPartial('index');
     }
 
     /**
