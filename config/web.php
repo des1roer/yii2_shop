@@ -8,7 +8,7 @@ $config = [
     'bootstrap' => ['log'],
     'modules' => [
         'myshop' => [
-            'class' => 'app\modules\myshop\Module',
+            'class' => 'des1roer\pers\myshop\Module' ,//'app\modules\myshop\Module',
         ],
         'user' => [
             'class' => 'amnah\yii2\user\Module',

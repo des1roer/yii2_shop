@@ -13,11 +13,9 @@ class m161002_104045_create_table_assorty extends Migration
     public function safeUp()
     {
         $this->createTable('{{%assorty}}', [
-
             'id' => $this->primaryKey()->unsigned()->notNull(),
             'shop_id' => $this->integer(10)->unsigned()->notNull(),
             'item_id' => $this->integer(10)->unsigned()->notNull(),
-
         ]);
  
         // creates index for column `item_id`

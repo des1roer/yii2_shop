@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "da8ae2288022687cc915291156284e9c",
-    "content-hash": "7188ac9a98ccba88c52947cf0586bf06",
+    "hash": "e72e15b8f45513f075c45f2b7bad8b9f",
+    "content-hash": "a134029047e4c6d1828b437fbf452194",
     "packages": [
         {
             "name": "amnah/yii2-user",
@@ -323,6 +323,49 @@
                 "markdown-extra"
             ],
             "time": "2016-09-14 20:40:20"
+        },
+        {
+            "name": "des1roer/yii2-des1roer-pers",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/des1roer/yii2-des1roer-pers.git",
+                "reference": "563328b43e386a284f3f36a106d0a7672aeb9f5b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/des1roer/yii2-des1roer-pers/zipball/563328b43e386a284f3f36a106d0a7672aeb9f5b",
+                "reference": "563328b43e386a284f3f36a106d0a7672aeb9f5b",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": []
+            },
+            "autoload": {
+                "psr-4": {
+                    "des1roer\\pers\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "des1roer",
+                    "email": "des1roer@gmail.com"
+                }
+            ],
+            "description": "pers",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "time": "2016-10-05 17:34:19"
         },
         {
             "name": "ezyang/htmlpurifier",
