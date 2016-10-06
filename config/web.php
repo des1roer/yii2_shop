@@ -14,6 +14,9 @@ $config = [
             'class' => 'amnah\yii2\user\Module',
         // set custom module properties here ...
         ],
+        'pers' => [
+            'class' => 'app\modules\pers\Module',
+        ],
     ],
     'components' => [
         'request' => [
